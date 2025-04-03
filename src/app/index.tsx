@@ -1,13 +1,10 @@
-import { ScrollView, View } from "react-native";
-import { styles } from "./styles";
-import { Header } from "../components/Header";
-import ListMovie from "../components/ListMovies";
+
+import { Home as HomeScreen } from "../screens/Home";
 
 export default function Home() {
   return (
-    <View style={styles.container}>
-      <Header />
-      <ListMovie />
-    </View>
+    <>
+    <HomeScreen/>
+    </>
   );
 }

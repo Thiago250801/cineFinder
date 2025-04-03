@@ -34,3 +34,8 @@ export const getEmCartaz = async () => {
     const response = await api.get('/movie/now_playing')
     return response.data.results;
 }
+
+export const getPopularTv = async () => {
+    const response = await api.get('/tv/popular')
+    return response.data.results;
+}
