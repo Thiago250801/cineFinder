@@ -2,15 +2,16 @@ import { Ionicons } from "@expo/vector-icons";
 import { Modal, Text, TouchableOpacity, View } from "react-native";
 import { styles } from "./styles";
 import { useState } from "react";
-import { useRouter } from "expo-router";
+import { usePathname, useRouter } from "expo-router";
 
 export const Header = () => {
   const [menuVisible, setMenuVisible] = useState<boolean>(false);
+  const router = useRouter();
+  const pathName = usePathname();
 
   const handleVisible = () => {
     setMenuVisible(!menuVisible);
   };
-
 
   return (
     <View style={styles.header}>
@@ -37,10 +38,24 @@ export const Header = () => {
         >
           {/* Aqui é o nosso menu dropdown, onde as opções aparecem bonitinhas feitas em aula */}
           <View style={styles.menuDropdown}>
-            <TouchableOpacity style={styles.menuItem}>
+            <TouchableOpacity
+              style={styles.menuItem}
+              onPress={() => {
+                setMenuVisible(false);
+                if (pathName !== "/") {
+                  router.push("/");
+                }
+              }}
+            >
               <Text style={styles.menuItemText}>Filmes</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.menuItem}>
+            <TouchableOpacity
+              style={styles.menuItem}
+              onPress={() => {
+                setMenuVisible(false);
+                router.push("/Serie");
+              }}
+            >
               <Text style={styles.menuItemText}>Séries</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.menuItem}>
