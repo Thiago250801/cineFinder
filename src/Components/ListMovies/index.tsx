@@ -7,7 +7,8 @@ import {
 } from "../../services/mediaService";
 import { Media, Section } from "../../types/types";
 import HorizontalList from "../HorizontalList";
-import { FlatList, ActivityIndicator, View } from "react-native";
+import { FlatList } from "react-native";
+import Loading from "../Loading";
 
 export default function ListMovie() {
   const [popularMovie, setPopularMovie] = useState<Media[]>([]);
@@ -51,9 +52,7 @@ export default function ListMovie() {
 
   if (isLoading){
     return (
-      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#0A0F1A' }}>
-        <ActivityIndicator size="large" color="#00A3FF"/>
-      </View>
+        <Loading /> 
     )
   }
 
