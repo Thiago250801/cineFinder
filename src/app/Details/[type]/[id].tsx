@@ -1,7 +1,14 @@
 import { useLocalSearchParams, usePathname, useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import { Media } from "../../../types/types";
-import { ScrollView, View, Image, Text, TouchableOpacity, Button } from "react-native";
+import {
+  ScrollView,
+  View,
+  Image,
+  Text,
+  TouchableOpacity,
+  Button,
+} from "react-native";
 import { getDetailsMedia } from "../../../services/mediaService";
 import styles from "../styles";
 import Ionicons from "@expo/vector-icons/Ionicons";
@@ -11,9 +18,8 @@ import Loading from "../../../components/Loading";
 const BASE_IMAGE_URL = "https://image.tmdb.org/t/p/w500";
 
 export default function DetailsMedia() {
-  const { id , type} = useLocalSearchParams();
+  const { id, type } = useLocalSearchParams();
   const router = useRouter();
-  
 
   const [media, setMedia] = useState<Media | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -21,19 +27,20 @@ export default function DetailsMedia() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const dataMedia = await getDetailsMedia(Number(id), type as 'movie' | 'tv');
+        const dataMedia = await getDetailsMedia(
+          Number(id),
+          type as "movie" | "tv"
+        );
         setMedia(dataMedia);
       } catch (error) {
         console.error("Ocorreu um erro na requisição: ", error);
-      } finally{
-          setIsLoading(false);
+      } finally {
+        setIsLoading(false);
       }
     };
 
     if (id && type) fetchData();
   }, [id, type]);
-
-
 
   const formatRuntime = (minutes: number) => {
     const hour = Math.floor(minutes / 60);
@@ -46,6 +53,13 @@ export default function DetailsMedia() {
     return value.toLocaleString("pt-BR", {
       style: "currency",
       currency: "BRL",
+    });
+  };
+
+  const formartRating = (value: number) => {
+    return value.toLocaleString("en-US", {
+      style: "decimal",
+      maximumFractionDigits: 1,
     });
   };
 
@@ -67,7 +81,6 @@ export default function DetailsMedia() {
           source={{ uri: `${BASE_IMAGE_URL}${media?.poster_path}` }}
         />
 
-
         <LinearGradient
           style={styles.gradient}
           colors={["rgba(10, 15, 26, 0)", "rgba(10, 15, 26, 0.9)"]}
@@ -88,7 +101,6 @@ export default function DetailsMedia() {
           <Text style={styles.infoTitle}>{media?.title || media?.name}</Text>
 
           <View style={styles.infoMedia}>
-            <Text></Text>
             <Text style={styles.infoDate}>
               {media?.release_date?.substring(0, 4)} -{" "}
               {media?.runtime ? formatRuntime(media.runtime) : "N/A"}
@@ -96,7 +108,9 @@ export default function DetailsMedia() {
 
             <View style={styles.rating}>
               <Ionicons name="star" color="#FFD700" size={16} />
-              <Text style={styles.ratingText}>8/10</Text>
+              <Text style={styles.ratingText}>{`${
+                media?.vote_average ? formartRating(media.vote_average) : "N/A"
+              }/10`}</Text>
             </View>
           </View>
         </View>
@@ -123,7 +137,9 @@ export default function DetailsMedia() {
           </Text>
           <Text style={[styles.otherInfoText]}>
             Idioma Original:{" "}
-            {media?.original_language ? media.original_language.toLocaleUpperCase() : "N/A"}{" "}
+            {media?.original_language
+              ? media.original_language.toLocaleUpperCase()
+              : "N/A"}{" "}
           </Text>
         </View>
       </View>
