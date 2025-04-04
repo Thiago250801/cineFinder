@@ -5,10 +5,10 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 15,
 
-    backgroundColor: '#1A2233',
+    backgroundColor: '#252A34',
 
     borderBottomWidth: 1,
-    borderBottomColor: 'rgba(255,255,255,0.3)',
+    borderBottomColor: '#08D9D6',
 
     shadowColor: '#000',
     shadowOpacity: 0.3,
@@ -32,20 +32,21 @@ export const styles = StyleSheet.create({
     textShadowRadius: 4,
   },
 
-  pandaTitle: {
-    color: '#ffffff',
+  cineTitle: {
+    color: '#08D9D6',
   },
 
-  flixTitle: {
-    color: '#00A3FF',
+  finderTitle: {
+    color: '#FF2E63',
     fontStyle: 'italic',
   },
 
   menuButton: {
-    backgroundColor: '#00A3FF',
+    backgroundColor: '#FF2E63',
     paddingVertical: 6,
     paddingHorizontal: 9,
     borderRadius: 8,
+    
   },
 
   // O que mudou ? Novo estilo modalOverlay
@@ -63,8 +64,7 @@ export const styles = StyleSheet.create({
   },
 
   menuDropdown: {
-    backgroundColor: '#2A3347',
-
+    backgroundColor: '#252A34',
     width: "97%", // Define uma largura fixa para o menu
     marginTop: 60, // Espaço para não sobrepor o header
     marginHorizontal: 4,
@@ -82,14 +82,14 @@ export const styles = StyleSheet.create({
 
   menuItem: {
     borderBottomWidth: 1,
-    borderBottomColor: 'rgba(255,255,255,0.3)',
+    borderBottomColor: '#08D9D6',
 
     paddingVertical: 10,
     paddingHorizontal: 6,
   },
 
   menuItemText: {
-    color: '#FFFFFF',
+    color: '#EAEAEA',
     fontSize: 20,
     fontWeight: '700',
   },

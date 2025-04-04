@@ -20,13 +20,18 @@ export const getDetailsMedia = async (id: number) => {
     return response.data;
 }
 
+export const getDetailsMediaTv = async (id: number) => {
+    const response = await api.get(`/tv/${id}`)
+    return response.data;
+}
+
 export const  getTopRatedMovie = async () => {
     const response = await api.get('/movie/top_rated')
     return response.data.results;
 }
 
-export const getTreendingMovie = async () => {
-    const response = await api.get('/trending/movie/week')
+export const getUpcomingMovie = async () => {
+    const response = await api.get('/movie/upcoming')
     return response.data.results;
 }
 
@@ -37,5 +42,10 @@ export const getEmCartaz = async () => {
 
 export const getPopularTv = async () => {
     const response = await api.get('/tv/popular')
+    return response.data.results;
+}
+
+export const getTopReateTv = async () => {
+    const response = await api.get('tv/top_rated')
     return response.data.results;
 }

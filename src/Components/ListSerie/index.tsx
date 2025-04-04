@@ -1,25 +1,27 @@
 import { useEffect, useState } from "react";
-import {
-
-  getPopularTv,
-} from "../../services/mediaService";
+import { getPopularTv, getTopReateTv } from "../../services/mediaService";
 import { Media, Section } from "../../types/types";
 import HorizontalList from "../HorizontalList";
 import { FlatList } from "react-native";
+import Loading from "../Loading";
 
 export default function ListSerie() {
-  const [popularSerie, setPopularSerie] = useState<Media[]>([]);
+  const [popularTv, setPopularTv] = useState<Media[]>([]);
+  const [topRatedTv, setTopRatedTv] = useState<Media[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
+        const dataPopularTv = await getPopularTv();
+        const dataTopRatedTv = await getTopReateTv();
 
-
-        const dataPopularSerie = await getPopularTv();
-
-        setPopularSerie(dataPopularSerie);
+        setPopularTv(dataPopularTv);
+        setTopRatedTv(dataTopRatedTv);
       } catch (error) {
         console.error("Ocorreu um erro na requisição: ", error);
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -27,13 +29,21 @@ export default function ListSerie() {
   }, []);
 
   const sections = [
-    { title: "Populares", data: popularSerie },
-
+    {
+        title: "Populares", data: popularTv
+    },
+    {
+        title: "Bem Avaliados", data: topRatedTv,
+    },
   ];
 
   const renderSection = ({ item }: { item: Section }) => (
     <HorizontalList sections={item} />
   );
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <FlatList

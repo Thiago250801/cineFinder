@@ -3,7 +3,8 @@ import {
   getEmCartaz,
   getPopularMovie,
   getTopRatedMovie,
-  getTreendingMovie,
+
+  getUpcomingMovie,
 } from "../../services/mediaService";
 import { Media, Section } from "../../types/types";
 import HorizontalList from "../HorizontalList";
@@ -13,7 +14,7 @@ import Loading from "../Loading";
 export default function ListMovie() {
   const [popularMovie, setPopularMovie] = useState<Media[]>([]);
   const [topRatedMovie, setTopRatedMovie] = useState<Media[]>([]);
-  const [trendingMovie, setTrendingMovie] = useState<Media[]>([]);
+  const [upcomingMovie, setUpcomingMovie] = useState<Media[]>([]);
   const [emCartazMovie, setEmCartazMovie] = useState<Media[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -23,12 +24,12 @@ export default function ListMovie() {
         const dataEmCartazMovie = await getEmCartaz();
         const dataPopularMovie = await getPopularMovie();
         const dataTopRatedMovie = await getTopRatedMovie();
-        const dataTrendingMovie = await getTreendingMovie();
+        const dataUpcomingMovie = await getUpcomingMovie();
 
         setEmCartazMovie(dataEmCartazMovie);
         setPopularMovie(dataPopularMovie);
         setTopRatedMovie(dataTopRatedMovie);
-        setTrendingMovie(dataTrendingMovie);
+        setUpcomingMovie(dataUpcomingMovie);
       } catch (error) {
         console.error("Ocorreu um erro na requisição: ", error);
       } finally {
@@ -41,19 +42,17 @@ export default function ListMovie() {
 
   const sections = [
     { title: "Em Cartaz", data: emCartazMovie },
-    { title: "TENDÊNCIAS", data: trendingMovie },
     { title: "Populares", data: popularMovie },
     { title: "Bem Avaliados", data: topRatedMovie },
+    { title: "Em breve", data: upcomingMovie }
   ];
 
   const renderSection = ({ item }: { item: Section }) => (
     <HorizontalList sections={item} />
   );
 
-  if (isLoading){
-    return (
-        <Loading /> 
-    )
+  if (isLoading) {
+    return <Loading />;
   }
 
   return (

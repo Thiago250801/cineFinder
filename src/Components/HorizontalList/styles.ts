@@ -3,7 +3,7 @@ import { StyleSheet } from "react-native";
 export const styles = StyleSheet.create({
 
     containerList: {
-        backgroundColor: '#141C2F',
+        backgroundColor: '#252A34',
         marginVertical: 15,
         paddingVertical: 10,
         borderRadius: 8
@@ -15,13 +15,12 @@ export const styles = StyleSheet.create({
     },
 
     titleList: {
-        color: '#00A3FF',
+        color: '#08D9D6',
         fontWeight: 700,
         fontSize: 20,
         textShadowColor: '#000',
         textShadowOffset: { width: 1, height: 1 },
         textShadowRadius: 4,
-        textTransform: 'uppercase',
         letterSpacing: 0.3,
         marginLeft: 15,
         marginBottom: 15
@@ -31,7 +30,7 @@ export const styles = StyleSheet.create({
         width: 140,
         marginRight: 15,
         borderRadius: 8,
-        backgroundColor: '#1E2A44',
+        backgroundColor: '#252A34',
         overflow: 'hidden',
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 4 },
@@ -48,7 +47,7 @@ export const styles = StyleSheet.create({
     },
 
     cardTitle: {
-        color: '#ffffff',
+        color: '#EAEAEA',
         fontSize: 14,
         fontWeight: 500,
         textTransform: 'capitalize',

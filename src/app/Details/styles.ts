@@ -3,7 +3,7 @@ import { StyleSheet } from "react-native";
 const styles = StyleSheet.create({
   containerDetails: {
     flex: 1,
-    backgroundColor: "#0A0F1A",
+    backgroundColor: "#181C24",
   },
   imageContainer: {
     height: 350,
@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
   infoTitle: {
     fontSize: 28,
     fontWeight: "700",
-    color: "#fff",
+    color: "#FF2E63",
     marginBottom: 10,
   },
   infoMedia: {
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   infoDate: {
-    color: "#00A3FF",
+    color: "#08D9D6",
     fontSize: 14,
     fontWeight: "400",
   },
@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
   },
   titleInfo: {
     fontSize: 20,
-    color: "#ffffff",
+    color: "#FF2E63",
     fontWeight: "700",
     marginBottom: 5,
   },
@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   otherInfoText: {
-    color: "#00A3FF",
+    color: "#08D9D6",
     fontWeight: "400",
     fontSize: 14,
     marginTop: 10,
