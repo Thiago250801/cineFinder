@@ -13,7 +13,14 @@ const styles = StyleSheet.create({
   posterImage: {
     width: "100%",
     height: "100%",
-    
+    position: "absolute"
+  },
+
+  laodingImage: {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: [{ translateX: -15 }, { translateY: -15 }],
   },
   buttonReturn: {
     position: "absolute",

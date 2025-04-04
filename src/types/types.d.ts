@@ -24,5 +24,15 @@ export type Media = {
     original_language?: string;
     revenue?: number
     status?: string;
-    media_type?: "movie" | "tv"
+    media_type?: "movie" | "tv",
+    number_of_seasons?: number;
+    number_of_episodes?: number;
+    last_air_date?: string;
+    created_by:{
+        name: string;
+        id: number;
+        credit_id: string;
+        gender: number;
+        profile_path: string;
+    }
 }

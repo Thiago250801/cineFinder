@@ -8,6 +8,7 @@ import {
   Text,
   TouchableOpacity,
   Button,
+  ActivityIndicator,
 } from "react-native";
 import { getDetailsMedia } from "../../../services/mediaService";
 import styles from "../styles";
@@ -23,6 +24,7 @@ export default function DetailsMedia() {
 
   const [media, setMedia] = useState<Media | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [isImageLoading, setIsImageLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -50,9 +52,9 @@ export default function DetailsMedia() {
   };
 
   const formatCurrency = (value: number) => {
-    return value.toLocaleString("pt-BR", {
+    return value.toLocaleString("en-US", {
       style: "currency",
-      currency: "BRL",
+      currency: "USD",
     });
   };
 
@@ -67,7 +69,7 @@ export default function DetailsMedia() {
     router.back();
   };
 
-  if (isLoading) {
+  if (isLoading ) {
     return <Loading />;
   }
 
@@ -75,10 +77,15 @@ export default function DetailsMedia() {
     <ScrollView style={styles.containerDetails}>
       {/*  Container Image */}
       <View style={styles.imageContainer}>
+        {isImageLoading && (
+          <ActivityIndicator size="large" color="#FF2E63" style={styles.imageContainer} />
+        )}
+        
         <Image
           style={styles.posterImage}
           resizeMode="contain"
           source={{ uri: `${BASE_IMAGE_URL}${media?.poster_path}` }}
+          onLoad={() => setIsImageLoading(false)}
         />
 
         <LinearGradient
@@ -99,12 +106,18 @@ export default function DetailsMedia() {
         {/* Principais Informações */}
         <View>
           <Text style={styles.infoTitle}>{media?.title || media?.name}</Text>
-
           <View style={styles.infoMedia}>
-            <Text style={styles.infoDate}>
-              {media?.release_date?.substring(0, 4)} -{" "}
-              {media?.runtime ? formatRuntime(media.runtime) : "N/A"}
-            </Text>
+            {type === "movie" && (
+              <Text style={styles.infoDate}>
+                {media?.release_date?.substring(0, 4)} -{" "}
+                {media?.runtime ? formatRuntime(media.runtime) : "N/A"}
+              </Text>
+            )}
+            {type === "tv" && (
+              <Text style={styles.infoDate}>
+                Temporadas: {media?.number_of_seasons}
+              </Text>
+            )}
 
             <View style={styles.rating}>
               <Ionicons name="star" color="#FFD700" size={16} />
@@ -124,24 +137,47 @@ export default function DetailsMedia() {
         </View>
 
         {/* Outras Informações */}
-        <View style={styles.otherInfoContainer}>
-          <Text style={styles.titleInfo}>Detalhes</Text>
-          <Text style={styles.otherInfoText}>
-            Orçamento: {media?.budget ? formatCurrency(media.budget) : "N/A"}{" "}
-          </Text>
-          <Text style={styles.otherInfoText}>
-            Receita: {media?.revenue ? formatCurrency(media.revenue) : "N/A"}{" "}
-          </Text>
-          <Text style={styles.otherInfoText}>
-            Status: {media?.status ? media.status : "N/A"}{" "}
-          </Text>
-          <Text style={[styles.otherInfoText]}>
-            Idioma Original:{" "}
-            {media?.original_language
-              ? media.original_language.toLocaleUpperCase()
-              : "N/A"}{" "}
-          </Text>
-        </View>
+        {type === "movie" && (
+          <View style={styles.otherInfoContainer}>
+            <Text style={styles.titleInfo}>Detalhes</Text>
+            <Text style={styles.otherInfoText}>
+              Orçamento: {media?.budget ? formatCurrency(media.budget) : "N/A"}{" "}
+            </Text>
+            <Text style={styles.otherInfoText}>
+              Receita: {media?.revenue ? formatCurrency(media.revenue) : "N/A"}{" "}
+            </Text>
+            <Text style={styles.otherInfoText}>
+              Status: {media?.status ? media.status : "N/A"}{" "}
+            </Text>
+            <Text style={[styles.otherInfoText]}>
+              Idioma Original:{" "}
+              {media?.original_language
+                ? media.original_language.toLocaleUpperCase()
+                : "N/A"}{" "}
+            </Text>
+          </View>
+        )}
+
+        {/* Informações específicas para séries */}
+        {type === "tv" && (
+          <View style={styles.containerDetails}>
+            <Text style={styles.titleInfo}>Detalhes</Text>
+            <Text style={styles.otherInfoText}>
+              Total de Episódios:{" "}
+              {media?.number_of_episodes ? media.number_of_episodes : "N/A"}
+            </Text>
+            <Text style={styles.otherInfoText}>
+              Último Episódio:{" "}
+              {media?.last_air_date ? media.last_air_date : "N/A"}
+            </Text>
+            <Text style={styles.otherInfoText}>
+              Status: {media?.status ? media.status : "N/A"}
+            </Text>
+            <Text style={styles.otherInfoText}>
+              Criado por: {media?.created_by.name || "N/A"}
+            </Text>
+          </View>
+        )}
       </View>
     </ScrollView>
   );
