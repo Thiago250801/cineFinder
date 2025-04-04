@@ -8,7 +8,7 @@
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "splash": {
-      "image": "./assets/cineFinderLogo.png",
+      "image": "./assets/cineFinderSplash.png",
       "resizeMode": "contain",
       "backgroundColor": "#252A34"
     },
