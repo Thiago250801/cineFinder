@@ -45,7 +45,17 @@ export const getPopularTv = async () => {
     return response.data.results;
 }
 
-export const getTopReateTv = async () => {
+export const getTopRatedTv = async () => {
     const response = await api.get('tv/top_rated')
+    return response.data.results;
+}
+
+export const getAiringTodayTv = async () => {
+    const response = await api.get('/tv/airing_today')
+    return response.data.results;
+}
+
+export const getOnTheAirTv = async () => {
+    const response = await api.get('/tv/on_the_air')
     return response.data.results;
 }
