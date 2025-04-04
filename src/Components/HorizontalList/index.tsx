@@ -1,7 +1,7 @@
 import { View, Text, FlatList, Image, TouchableOpacity } from "react-native";
 import { Media, Section } from "../../types/types";
 import { styles } from "./styles";
-import { useRouter } from "expo-router";
+import { usePathname, useRouter } from "expo-router";
 
 type HorizontalListProps = {
     sections: Section
@@ -13,12 +13,12 @@ export default function HorizontalList({ sections }: HorizontalListProps) {
 
     const router = useRouter();
 
-    const handleNavigationToDetails = (id: number) => {
-        router.push(`/Details/${id}`)
-    }
-
+    const handleNavigationToDetails = (item: Media) => {
+        const type = item.media_type || (item.title ? "movie" : "tv");
+        router.push(`/Details/${type}/${item.id}`);
+      };
     const renderItem = ({ item }: {item: Media}) => (
-        <TouchableOpacity style={ styles.cardItem } onPress={() => handleNavigationToDetails(item.id) }  >
+        <TouchableOpacity style={ styles.cardItem } onPress={() => handleNavigationToDetails(item) }  >
 
             <Image style={ styles.cardImage } 
             resizeMode="cover" source={{ uri: `${BASE_IMAGE_URL}${item.poster_path} ` }} 

@@ -15,8 +15,8 @@ export const getPopularMovie =  async () => {
 }
 
 // Pega as informações de um filme específico 
-export const getDetailsMedia = async (id: number) => {
-    const response = await api.get(`/movie/${id}`)
+export const getDetailsMedia = async (id: number, type: 'movie' | 'tv' = 'movie') => {
+    const response = await api.get(`${type}/${id}`)
     return response.data;
 }
 

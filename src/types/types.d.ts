@@ -24,4 +24,5 @@ export type Media = {
     original_language?: string;
     revenue?: number
     status?: string;
+    media_type?: "movie" | "tv"
 }

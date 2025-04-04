@@ -1,32 +1,39 @@
-import { useLocalSearchParams, useRouter } from "expo-router";
+import { useLocalSearchParams, usePathname, useRouter } from "expo-router";
 import { useEffect, useState } from "react";
-import { Media } from "../../types/types";
-import { ScrollView, View, Image, Text, TouchableOpacity } from "react-native";
-import { getDetailsMedia } from "../../services/mediaService";
-import styles from "./styles";
+import { Media } from "../../../types/types";
+import { ScrollView, View, Image, Text, TouchableOpacity, Button } from "react-native";
+import { getDetailsMedia } from "../../../services/mediaService";
+import styles from "../styles";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { LinearGradient } from "expo-linear-gradient";
+import Loading from "../../../components/Loading";
 
 const BASE_IMAGE_URL = "https://image.tmdb.org/t/p/w500";
 
 export default function DetailsMedia() {
-  const { id } = useLocalSearchParams();
+  const { id , type} = useLocalSearchParams();
   const router = useRouter();
+  
 
   const [media, setMedia] = useState<Media | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const dataMedia = await getDetailsMedia(Number(id));
+        const dataMedia = await getDetailsMedia(Number(id), type as 'movie' | 'tv');
         setMedia(dataMedia);
       } catch (error) {
         console.error("Ocorreu um erro na requisição: ", error);
+      } finally{
+          setIsLoading(false);
       }
     };
 
-    fetchData();
-  }, [id]);
+    if (id && type) fetchData();
+  }, [id, type]);
+
+
 
   const formatRuntime = (minutes: number) => {
     const hour = Math.floor(minutes / 60);
@@ -46,6 +53,10 @@ export default function DetailsMedia() {
     router.back();
   };
 
+  if (isLoading) {
+    return <Loading />;
+  }
+
   return (
     <ScrollView style={styles.containerDetails}>
       {/*  Container Image */}
@@ -55,6 +66,7 @@ export default function DetailsMedia() {
           resizeMode="contain"
           source={{ uri: `${BASE_IMAGE_URL}${media?.poster_path}` }}
         />
+
 
         <LinearGradient
           style={styles.gradient}
@@ -76,6 +88,7 @@ export default function DetailsMedia() {
           <Text style={styles.infoTitle}>{media?.title || media?.name}</Text>
 
           <View style={styles.infoMedia}>
+            <Text></Text>
             <Text style={styles.infoDate}>
               {media?.release_date?.substring(0, 4)} -{" "}
               {media?.runtime ? formatRuntime(media.runtime) : "N/A"}
