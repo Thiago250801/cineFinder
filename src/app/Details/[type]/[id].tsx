@@ -173,9 +173,6 @@ export default function DetailsMedia() {
             <Text style={styles.otherInfoText}>
               Status: {media?.status ? media.status : "N/A"}
             </Text>
-            <Text style={styles.otherInfoText}>
-              Criado por: {media?.created_by.name || "N/A"}
-            </Text>
           </View>
         )}
       </View>
